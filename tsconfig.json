@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./*"],
+      "root/*": ["./*"],
+      "src/*": ["src/*"],
+      "navigation": ["./src/navigation"],
+      "utils": ["./src/utils"],
+      "components": ["./src/components"],
+      "i18n": ["./src/i18n"],
+    }
+  },
+  "extends": "@react-native/typescript-config/tsconfig.json"
+}
