@@ -148,6 +148,6 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       color: colors.primary,
       fontFamily: fonts.medium.fontFamily,
     } as TextStyle,
-    isDisabledStyle: {backgroundColor: colors.placeholderText} as ViewStyle,
+    isDisabledStyle: {backgroundColor: colors.placeholder} as ViewStyle,
     isDisabledLinkStyle: {backgroundColor: colors.transparent} as ViewStyle,
   });

@@ -14,6 +14,7 @@ import {
   FacebookLight,
   GoogleLight,
 } from 'src/assets/svgs';
+import {useValidation} from 'src/utils';
 
 const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
   const {dark, colors} = useAppTheme(); // Get colors & fonts from theme
@@ -25,14 +26,27 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
   // Hooks
   const [email, setEmail] = useState<string>('');
 
-  const onPressContinue = async () => {
-    try {
-      navigate('loginPassword');
-    } catch (error) {}
-  };
+  // Validate form textfields input
+  const {setIsTouched, validateForm, isFormValid, getErrorsInField} =
+    useValidation({
+      state: {email},
+      fieldsRules: {
+        email: {
+          required: true,
+          email: true,
+        },
+      },
+      isTouchedEnabled: true,
+    });
 
-  const redirectToPasswordScrren = () => {
-    navigate('loginPassword', {email: email});
+  const onPressContinue = async () => {
+    setIsTouched(true);
+    const isValid = validateForm();
+    if (isValid) {
+      try {
+        navigate('loginPassword', {email: email});
+      } catch (error) {}
+    }
   };
 
   /**
@@ -50,6 +64,7 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
         value={email}
         onChangeText={setEmail}
         placeholder={t('login.emailPlaceholder')}
+        error={getErrorsInField('email')}
       />
     </View>
   );
@@ -69,7 +84,8 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
   const renderButtons = () => (
     <Button
       btnText={t('login.btnContinue')}
-      onPress={redirectToPasswordScrren}
+      onPress={onPressContinue}
+      disabled={!isFormValid()}
     />
   );
 

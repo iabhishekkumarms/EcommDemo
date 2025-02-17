@@ -6,6 +6,7 @@ import makeStyles from './styles';
 import {useAppTheme} from 'src/theme/useAppTheme';
 import {useTranslation} from 'react-i18next';
 import {TextField} from 'src/components/TextField/TextField';
+import {useValidation} from 'src/utils';
 
 const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
   const [email, setEmail] = useState('');
@@ -27,7 +28,31 @@ const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
     }
   }, [route.params]);
 
-  const callLoginApi = () => {};
+  // Validate form textfields input
+  const {setIsTouched, validateForm, isFormValid, getErrorsInField} =
+    useValidation({
+      state: {password},
+      fieldsRules: {
+        password: {
+          required: true,
+          password: true,
+          minlength: 8,
+          maxlength: 16,
+          hasUpperCase: true,
+          hasLowerCase: true,
+          hasNumber: true,
+          hasSpecialCharacter: true,
+        },
+      },
+      isTouchedEnabled: true,
+    });
+
+  const callLoginApi = () => {
+    setIsTouched(true);
+    const isValid = validateForm();
+    if (isValid) {
+    }
+  };
 
   const redirectToForgotPasswordScreen = () => {
     navigate('forgotPassword');
@@ -64,12 +89,17 @@ const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
         placeholder={t('login.passwordPlaceholder')}
         returnKeyType="done"
         textContentType="password"
+        error={getErrorsInField('password')}
       />
     </View>
   );
 
   const renderButtons = () => (
-    <Button btnText={t('login.btnContinue')} onPress={callLoginApi} />
+    <Button
+      btnText={t('login.btnContinue')}
+      onPress={callLoginApi}
+      disabled={!isFormValid()}
+    />
   );
 
   return (
