@@ -87,7 +87,7 @@ const themedStyle = (colors: ThemeColors) =>
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: 1,
-      backgroundColor: colors.backgroundSecondary,
+      backgroundColor: colors.background,
     } as ViewStyle,
     spinner: {
       backgroundColor: colors.background,

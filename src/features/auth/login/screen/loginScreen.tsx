@@ -8,6 +8,7 @@ import makeStyles from './styles';
 import {useTranslation} from 'react-i18next';
 import {TextField} from 'src/components/TextField/TextField';
 import {SocialButton} from 'src/components/SocialButton';
+import {useFocusEffect} from '@react-navigation/native';
 import {
   AppleDark,
   AppleLight,
@@ -15,6 +16,8 @@ import {
   GoogleLight,
 } from 'src/assets/svgs';
 import {useValidation} from 'src/utils';
+import {useAppDispatch} from 'src/store/reduxHook';
+import {resetLoginState} from '../api/slice';
 
 const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
   const {dark, colors} = useAppTheme(); // Get colors & fonts from theme
@@ -24,16 +27,23 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
   const {t} = useTranslation();
 
   // Hooks
-  const [email, setEmail] = useState<string>('');
+  const [username, setusername] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+  // Reset login state when navigating back to Username screen
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(resetLoginState()); // Reset login success state
+    }, [dispatch]),
+  );
 
   // Validate form textfields input
   const {setIsTouched, validateForm, isFormValid, getErrorsInField} =
     useValidation({
-      state: {email},
+      state: {username},
       fieldsRules: {
-        email: {
+        username: {
           required: true,
-          email: true,
         },
       },
       isTouchedEnabled: true,
@@ -44,9 +54,13 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
     const isValid = validateForm();
     if (isValid) {
       try {
-        navigate('loginPassword', {email: email});
+        navigate('loginPassword', {username: username});
       } catch (error) {}
     }
+  };
+
+  const navigateToSignupScrren = async () => {
+    navigate('signup');
   };
 
   /**
@@ -61,10 +75,10 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
   const renderTextInput = () => (
     <View style={styles.textFiledContainer}>
       <TextField
-        value={email}
-        onChangeText={setEmail}
-        placeholder={t('login.emailPlaceholder')}
-        error={getErrorsInField('email')}
+        value={username}
+        onChangeText={setusername}
+        placeholder={t('login.usernamePlaceholder')}
+        error={getErrorsInField('username')}
       />
     </View>
   );
@@ -76,7 +90,7 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
         textStyle={{color: colors.text}}
         preset="link"
         btnText={t('login.createOne')}
-        onPress={onPressContinue}
+        onPress={navigateToSignupScrren}
       />
     </View>
   );

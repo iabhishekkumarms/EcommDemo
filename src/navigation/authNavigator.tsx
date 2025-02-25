@@ -8,6 +8,7 @@ import LoginScreen from '../features/auth/login/screen/loginScreen';
 import SignupScreen from 'src/features/auth/signup/screen/signupScreen';
 import LoginPasswordScreen from 'src/features/auth/login/screen/loginPasswordScreen';
 import ForgotPasswordScreen from 'src/features/auth/login/screen/forgotPasswordScreen';
+import HomeScreen from 'src/features/home/screen/homeScreen';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -15,7 +16,7 @@ import ForgotPasswordScreen from 'src/features/auth/login/screen/forgotPasswordS
  */
 export type AuthParamList = {
   login: undefined;
-  loginPassword: {email: string};
+  loginPassword: {username: string};
   signup: undefined;
   forgotPassword: undefined;
 };

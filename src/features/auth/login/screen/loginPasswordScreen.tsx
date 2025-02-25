@@ -1,5 +1,5 @@
 import {TextInput, View} from 'react-native';
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import {AuthScreenProps, navigate} from 'src/navigation';
 import {Button, Screen, Text} from 'src/components';
 import makeStyles from './styles';
@@ -7,9 +7,13 @@ import {useAppTheme} from 'src/theme/useAppTheme';
 import {useTranslation} from 'react-i18next';
 import {TextField} from 'src/components/TextField/TextField';
 import {useValidation} from 'src/utils';
+import {useAppDispatch, useAppSelector} from 'src/store/reduxHook';
+import {callLoginApi} from '../api/actions';
+import {LoginReq} from '../api/api.types';
+import {showErrorToast, showSuccessToast} from 'src/utils/toast';
 
 const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
-  const [email, setEmail] = useState('');
+  const [username, setusername] = useState('');
   const [password, setPassword] = useState<string>('');
 
   const {colors} = useAppTheme(); // Get colors & fonts from theme
@@ -22,11 +26,31 @@ const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
 
   const {t} = useTranslation();
 
+  const dispatch = useAppDispatch();
+  const {data, loading, error} = useAppSelector(state => state.login);
+
+  // Memoize translation strings
+  const loginSuccessMessage = useMemo(() => t('login.loginSuccess'), [t]);
+  const unexpectedErrorMessage = useMemo(
+    () => t('common.unexpectedError'),
+    [t],
+  );
+
+  // Set username from route params
   useEffect(() => {
-    if (route.params && route.params.email) {
-      setEmail(route.params.email);
+    if (route.params && route.params.username) {
+      setusername(route.params.username);
     }
   }, [route.params]);
+
+  useEffect(() => {
+    if (data || error) {
+      data
+        ? (showSuccessToast({message: loginSuccessMessage}),
+          navigate('Primary'))
+        : showErrorToast({message: error ?? unexpectedErrorMessage});
+    }
+  }, [data, error, loginSuccessMessage, unexpectedErrorMessage]);
 
   // Validate form textfields input
   const {setIsTouched, validateForm, isFormValid, getErrorsInField} =
@@ -36,21 +60,26 @@ const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
         password: {
           required: true,
           password: true,
-          minlength: 8,
-          maxlength: 16,
-          hasUpperCase: true,
-          hasLowerCase: true,
-          hasNumber: true,
-          hasSpecialCharacter: true,
         },
       },
       isTouchedEnabled: true,
     });
 
-  const callLoginApi = () => {
+  // Call login api
+  const loginUser = (user: string, userPassword: string) => {
+    const reqBody: LoginReq = {
+      username: user,
+      password: userPassword,
+      expireInMins: '30',
+    };
+    return dispatch(callLoginApi(reqBody));
+  };
+
+  const callLoginApiFromScreen = async () => {
     setIsTouched(true);
     const isValid = validateForm();
     if (isValid) {
+      loginUser(username, password);
     }
   };
 
@@ -97,13 +126,16 @@ const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
   const renderButtons = () => (
     <Button
       btnText={t('login.btnContinue')}
-      onPress={callLoginApi}
+      onPress={callLoginApiFromScreen}
       disabled={!isFormValid()}
     />
   );
 
   return (
-    <Screen safeAreaEdges={['top', 'bottom', 'left', 'right']} preset="auto">
+    <Screen
+      safeAreaEdges={['top', 'bottom', 'left', 'right']}
+      preset="auto"
+      loading={loading}>
       <View style={styles.contentContainerStyle}>
         {renderTitle()}
         {renderTextInput()}

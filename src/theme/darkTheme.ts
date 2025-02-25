@@ -9,7 +9,7 @@ export const DarkTheme: AppTheme = {
     text: colors.white,
     background: colors.raisinBlack,
     backgroundSecondary: '#1E1E1E',
-    tertiary: '#BDBDBD',
+    tertiary: colors.charlestonGreen,
     btnColor: colors.violetsAreBlue,
     btnColorSecondary: colors.onyx,
     btnTextPrimary: colors.white,
@@ -21,6 +21,10 @@ export const DarkTheme: AppTheme = {
     notification: '#FF4081', // Required by React Navigation
     errorColor: colors.red,
     transparent: colors.transparent,
+    success: colors.success,
+    danger: colors.danger,
+    info: colors.info,
+    warning: colors.warning,
   },
   fonts: typography,
 };

@@ -18,6 +18,10 @@ export interface ThemeColors {
   notification: string; // Required by React Navigation
   errorColor: string;
   transparent: string;
+  success: string;
+  danger: string;
+  info: string;
+  warning: string;
 }
 
 export interface ThemeFonts {

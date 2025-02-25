@@ -5,14 +5,14 @@ import {
 } from '@react-navigation/native-stack';
 import {useAppTheme} from '../theme/useAppTheme';
 import makeCommanStyles from '../components/styles';
-import HomeScreen from '../features/home/screen/homeScreen';
+import {TabNavigator} from './tabNavigator';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
  */
 export type PrimaryParamList = {
-  home: undefined;
+  homeNav: undefined;
 };
 
 /**
@@ -30,7 +30,7 @@ export const PrimaryNavigator = () => {
 
   return (
     <PrimaryStack.Navigator
-      initialRouteName="home"
+      initialRouteName="homeNav"
       screenOptions={{
         navigationBarColor: colors.background,
         headerTitleStyle: commonStyles.headerTitle,
@@ -39,7 +39,7 @@ export const PrimaryNavigator = () => {
         headerTitleAlign: 'center',
         headerStyle: commonStyles.headerBackground,
       }}>
-      <PrimaryStack.Screen name={'home'} component={HomeScreen} />
+      <PrimaryStack.Screen name={'homeNav'} component={TabNavigator} />
     </PrimaryStack.Navigator>
   );
 };

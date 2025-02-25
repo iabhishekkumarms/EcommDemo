@@ -9,7 +9,7 @@ export const LightTheme: AppTheme = {
     text: colors.charlestonGreen,
     background: colors.white,
     backgroundSecondary: '#F5F5F5',
-    tertiary: '#757575',
+    tertiary: colors.charlestonGreen,
     btnColor: colors.violetsAreBlue,
     btnColorSecondary: colors.cultured,
     btnTextPrimary: colors.white,
@@ -21,6 +21,10 @@ export const LightTheme: AppTheme = {
     notification: '#FF4081', // Required by React Navigation
     errorColor: colors.red,
     transparent: colors.transparent,
+    success: colors.success,
+    danger: colors.danger,
+    info: colors.info,
+    warning: colors.warning,
   },
   fonts: typography,
 };
