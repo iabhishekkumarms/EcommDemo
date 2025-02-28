@@ -8,6 +8,10 @@ const en = {
     warning: 'Warning',
     unexpectedError: 'An unexpected error occurred. Please try again.',
   },
+  errorMessage: {
+    fetchProductsRequestFailed: 'Failed to fetch products. Please try again.',
+    loginRequestFailed: 'Failed to login. Please try again.',
+  },
   login: {
     title: 'Sign in',
     passwordPlaceholder: 'Password',
@@ -52,6 +56,24 @@ const en = {
   },
   home: {
     title: 'Home',
+    categories: 'Categories',
+    viewAll: 'View All',
+    topSelling: 'Top Selling',
+  },
+  searchBar: {
+    placeholder: 'Search...',
+  },
+  category: {
+    fetchCategoriesRequestFailed:
+      'Failed to fetch categories. Please try again.',
+  },
+  product: {
+    shipping: 'Shipping & Returns',
+    reviews: 'Reviews',
+    rating: ' Ratings',
+    addToBag: 'Add to Bag',
+    quantity: 'Quantity',
+    addToCartSuccessMessage: 'Item added to bag.',
   },
 };
 

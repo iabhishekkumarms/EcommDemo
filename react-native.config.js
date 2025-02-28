@@ -6,4 +6,11 @@ module.exports = {
    * Add font name in theme/typography file
    */
   assets: ['./src/assets/fonts/'],
+  dependencies: {
+    'react-native-vector-icons': {
+      platforms: {
+        ios: null, // Disable auto-linking for iOS if you are using CocoaPods
+      },
+    },
+  },
 };

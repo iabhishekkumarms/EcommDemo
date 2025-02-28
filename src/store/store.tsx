@@ -10,7 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
   key: 'root',
   storage: reduxStorage,
-  whitelist: ['user'],
+  whitelist: ['login', 'cart'],
   blacklist: [],
 };
 

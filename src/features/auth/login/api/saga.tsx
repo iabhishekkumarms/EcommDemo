@@ -3,6 +3,7 @@ import {loginFailure, loginRequest, loginSuccess} from './slice';
 import {fetchLoginData} from './api';
 import {CALL_LOGIN_API} from './constants';
 import {LoginReq, LoginRes} from './api.types';
+import {getTranslation} from 'src/utils/messageTranslation';
 
 /**
  * Saga to handle the login API request.
@@ -25,11 +26,17 @@ function* fetchLoginApiDataSaga(action: {
       console.log('saga ressponse 1: ', data);
     } else {
       // Dispatch failure if login fails with an error message
-      yield put(loginFailure(data || 'Unknown error occurred'));
+      yield put(
+        loginFailure(data || getTranslation('errorMessage.loginRequestFailed')),
+      );
     }
   } catch (error: any) {
     // Handle API call failure
-    yield put(loginFailure(error?.message || 'Login request failed'));
+    yield put(
+      loginFailure(
+        error?.message || getTranslation('errorMessage.loginRequestFailed'),
+      ),
+    );
   }
 }
 

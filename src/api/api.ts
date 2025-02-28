@@ -52,8 +52,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response: AxiosResponse) => {
     // You can modify the response data here before it's passed to the component
-    console.log('🚀 Response:', response);
-    return response?.data;
+    console.log('🚀 Response:', response.data);
+    return response.data;
   },
   error => {
     // Handle error responses here
