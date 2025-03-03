@@ -3,10 +3,12 @@ import {RootState} from 'src/store/store';
 
 interface CartItem {
   id: string;
-  name: string;
+  title: string;
   price: number;
   quantity: number;
   totalPrice: number;
+  images: string[];
+  description: string;
 }
 
 interface CartState {
@@ -38,7 +40,8 @@ export const cartSlice = createSlice({
       const existingItem = state.items.find(item => item.id === newItem.id);
       if (existingItem) {
         existingItem.quantity += 1;
-        existingItem.totalPrice += newItem.price * existingItem.quantity;
+        // existingItem.totalPrice += newItem.price * existingItem.quantity;
+        existingItem.totalPrice += newItem.price;
       } else {
         state.items.push({
           ...newItem,

@@ -1,4 +1,4 @@
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import React, {FC, useState} from 'react';
 import {PrimaryScreenProps} from 'src/navigation';
 import {Product} from 'src/shared/models/product';
@@ -9,8 +9,6 @@ import {useTranslation} from 'react-i18next';
 import makeStyles from './styles';
 import CustomerReview from 'src/components/CustomerReview';
 import AddItemToCart from 'src/components/AddItemToCart';
-import {useAppDispatch} from 'src/store/reduxHook';
-import {addItem} from 'src/features/cart/api/slice';
 import AddToBagButton from 'src/components/AddToBagButton';
 
 const ProductDetailsScreen: FC<PrimaryScreenProps<'productDetails'>> = ({
@@ -22,8 +20,6 @@ const ProductDetailsScreen: FC<PrimaryScreenProps<'productDetails'>> = ({
   const styles = makeStyles(colors, fonts);
   const {t} = useTranslation();
   const [quantity, setQuantity] = useState(1);
-
-  const dispatch = useAppDispatch();
 
   const renderProductImageSlider = () => {
     return (
@@ -95,7 +91,8 @@ const ProductDetailsScreen: FC<PrimaryScreenProps<'productDetails'>> = ({
         quantity={quantity}
         colors={colors}
         fonts={fonts}
-        t={t}
+        buttonText={t('product.addToBag')}
+        toastMessage={t('product.addToCartSuccessMessage')}
       />
     </View>
   );

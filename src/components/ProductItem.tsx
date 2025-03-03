@@ -9,7 +9,6 @@ import React from 'react';
 import {vs} from 'src/utils';
 import {Text} from './Text';
 import {ThemeColors, ThemeFonts} from 'src/theme/theme';
-import SvgIcBookmark from 'src/assets/svgs/IcBookmark';
 import FastImage from 'react-native-fast-image';
 import {Product} from 'src/shared/models/product';
 import {navigate} from 'src/navigation';

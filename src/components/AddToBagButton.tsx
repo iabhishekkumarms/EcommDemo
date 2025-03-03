@@ -7,29 +7,36 @@ import {s, vs} from 'src/utils';
 import {Text} from './Text';
 import {spacing} from 'src/theme/spacing';
 import {showSuccessToast} from 'src/utils/toast';
-import {TFunction} from 'i18next';
 
 type Props = {
   item: any;
   quantity: number;
   colors: ThemeColors;
   fonts: ThemeFonts;
-  t: TFunction;
+  buttonText: string; // Add buttonText prop
+  toastMessage: string; // Add toastMessage prop
 };
 
-const AddToBagButton: FC<Props> = ({item, quantity, colors, fonts, t}) => {
+const AddToBagButton: FC<Props> = ({
+  item,
+  quantity,
+  colors,
+  fonts,
+  buttonText,
+  toastMessage,
+}) => {
   const dispatch = useAppDispatch();
   const styles = makeStyles(colors, fonts);
 
   // Memoize translation strings
-  const addToCartSuccessMessage = useMemo(
-    () => t('product.addToCartSuccessMessage'),
-    [t],
-  );
+  // const addToCartSuccessMessage = useMemo(
+  //   () => t('product.addToCartSuccessMessage'),
+  //   [t],
+  // );
 
   const handleAddToBag = () => {
     dispatch(addItemWithQuantity({item, quantity: quantity}));
-    showSuccessToast({message: addToCartSuccessMessage});
+    showSuccessToast({message: toastMessage});
   };
 
   return (
@@ -38,7 +45,7 @@ const AddToBagButton: FC<Props> = ({item, quantity, colors, fonts, t}) => {
         <Text style={styles.addButtonText}>
           ${(item.price * quantity).toFixed(2)}
         </Text>
-        <Text style={styles.addButtonText}>Add to Bag</Text>
+        <Text style={styles.addButtonText}>{buttonText}</Text>
       </TouchableOpacity>
     </View>
   );

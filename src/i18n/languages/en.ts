@@ -75,6 +75,18 @@ const en = {
     quantity: 'Quantity',
     addToCartSuccessMessage: 'Item added to bag.',
   },
+  cart: {
+    cartIsEmpty: 'Your cart is empty',
+    exploreCategory: 'Explore Category',
+    totalPirce: 'Total Price',
+    chekout: 'Checkout',
+    placeOrder: ' Place Order',
+  },
+  order: {
+    orderPlacedSuccess: 'Order placed successfully!',
+    orderPlacedEmailText: 'You will recieve an email confirmation',
+    navigateToHome: 'Navigate To Home',
+  },
 };
 
 export default en;

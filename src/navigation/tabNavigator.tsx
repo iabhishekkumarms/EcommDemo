@@ -18,6 +18,7 @@ import SvgIcHome from 'src/assets/svgs/IcHome';
 import SvgIcNotification from 'src/assets/svgs/IcNotification';
 import SvgIcOrder from 'src/assets/svgs/IcOrder';
 import SvgIcProfile from 'src/assets/svgs/IcProfile';
+import ProfileScreen from 'src/features/profile/screen/profile/ProfileScreen';
 
 export type TabParamList = {
   home: undefined;
@@ -82,23 +83,10 @@ export const TabNavigator = () => {
           icon: <SvgIcHome />,
         })}
       />
-      <Tab.Screen
-        name={'notification'}
-        component={HomeScreen}
-        options={generateScreenOptions({
-          icon: <SvgIcNotification />,
-        })}
-      />
-      <Tab.Screen
-        name={'orders'}
-        component={HomeScreen}
-        options={generateScreenOptions({
-          icon: <SvgIcOrder />,
-        })}
-      />
+
       <Tab.Screen
         name={'profile'}
-        component={HomeScreen}
+        component={ProfileScreen}
         options={generateScreenOptions({
           icon: <SvgIcProfile />,
         })}

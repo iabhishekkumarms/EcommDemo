@@ -1,6 +1,6 @@
 import {UserObj} from './api.types';
 import {createSlice} from '@reduxjs/toolkit';
-
+import {RootState} from 'src/store/store';
 // Define the initial state
 interface LoginState {
   data: UserObj | null;
@@ -55,4 +55,7 @@ const loginSlice = createSlice({
 
 export const {loginRequest, loginSuccess, loginFailure, resetLoginState} =
   loginSlice.actions;
+
+export const selectUserDetails = (state: RootState) => state.login.data;
+
 export default loginSlice.reducer;

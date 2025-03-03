@@ -33,12 +33,12 @@ export const AppNavigator: FC = ({ref: _ref, ...props}: NavigationProps) => {
         theme={appTheme}
         onReady={hideBootSplash}
         {...props}>
-        <Stack.Navigator initialRouteName="Primary">
-          {/* <Stack.Screen
+        <Stack.Navigator initialRouteName="Auth">
+          <Stack.Screen
             name="Auth"
             component={AuthNavigator}
             options={{headerShown: false}}
-          /> */}
+          />
           <Stack.Screen
             name="Primary"
             component={PrimaryNavigator}

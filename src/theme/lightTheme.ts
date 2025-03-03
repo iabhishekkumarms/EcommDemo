@@ -5,7 +5,7 @@ import {typography} from './typography';
 export const LightTheme: AppTheme = {
   dark: false,
   colors: {
-    primary: '#6200EE',
+    primary: colors.violetsAreBlue,
     text: colors.charlestonGreen,
     background: colors.white,
     backgroundSecondary: '#F5F5F5',
