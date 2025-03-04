@@ -45,7 +45,7 @@ const CartScreen = () => {
           />
 
           <View style={styles.totalPriceView}>
-            <Text style={styles.totalText}>Total Price</Text>
+            <Text style={styles.totalText}>{t('cart.totalPrice')}</Text>
             <Text style={styles.totalPrice}>${totalPrice.toFixed(2)}</Text>
           </View>
         </View>
@@ -83,8 +83,8 @@ const CartScreen = () => {
         preset="default"
         btnText={t('cart.chekout')}
         onPress={navigateToCheckoutScreen}
+        textStyle={styles.exploreBtnStyle}
       />
-      ;
     </View>
   );
 };

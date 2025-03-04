@@ -27,6 +27,7 @@ const en = {
     forgotPassword: 'Forgot Password?',
     reset: 'Reset',
     loginSuccess: 'Login successful!',
+    emailPlaceholder: 'Email',
   },
   signup: {
     title: 'Create Account',
@@ -81,11 +82,35 @@ const en = {
     totalPirce: 'Total Price',
     chekout: 'Checkout',
     placeOrder: ' Place Order',
+    totalPrice: 'Total Price',
   },
   order: {
     orderPlacedSuccess: 'Order placed successfully!',
     orderPlacedEmailText: 'You will recieve an email confirmation',
     navigateToHome: 'Navigate To Home',
+  },
+  address: {
+    placeHolderStreetAddress: 'Street Address',
+    placeHolderCity: 'City',
+    placeHolderState: 'State',
+    placeHolderZip: 'Zip Code',
+    btnSave: 'Save',
+    showSuccessMessage: 'Address Saved Successfuly',
+  },
+  profile: {
+    title: 'Profile',
+    address: 'Address',
+    checkout: 'Checkout',
+    wishlist: 'Wishlist',
+    signout: 'Sign Out',
+  },
+  checkout: {
+    address: 'Address',
+    shipping: 'Shipping Address',
+    paymentMethod: 'Payment Method',
+    cod: 'Cash On Delivery',
+    codMeassage: 'Now we only have COD option',
+    showAddressMessage: 'Please enter a valid address',
   },
 };
 

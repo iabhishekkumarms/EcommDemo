@@ -6,12 +6,14 @@ interface LoginState {
   data: UserObj | null;
   loading: boolean;
   error: string | null;
+  accessToken: string | null;
 }
 
 const initialState: LoginState = {
   data: null,
   loading: false,
   error: null,
+  accessToken: null,
 };
 
 // Create the slice
@@ -38,6 +40,7 @@ const loginSlice = createSlice({
     },
     loginSuccess(state, action) {
       state.data = action.payload;
+      state.accessToken = action.payload.accessToken;
       state.loading = false;
       state.error = null;
     },
@@ -49,6 +52,7 @@ const loginSlice = createSlice({
       state.data = null;
       state.loading = false;
       state.error = null;
+      state.accessToken = null;
     },
   },
 });
@@ -57,5 +61,5 @@ export const {loginRequest, loginSuccess, loginFailure, resetLoginState} =
   loginSlice.actions;
 
 export const selectUserDetails = (state: RootState) => state.login.data;
-
+export const selectAccessToken = (state: RootState) => state.login.accessToken;
 export default loginSlice.reducer;

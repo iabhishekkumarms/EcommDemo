@@ -7,8 +7,6 @@ import {useAppTheme} from '../theme/useAppTheme';
 import LoginScreen from '../features/auth/login/screen/loginScreen';
 import SignupScreen from 'src/features/auth/signup/screen/signupScreen';
 import LoginPasswordScreen from 'src/features/auth/login/screen/loginPasswordScreen';
-import ForgotPasswordScreen from 'src/features/auth/login/screen/forgotPasswordScreen';
-
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
@@ -53,14 +51,9 @@ export const AuthNavigator = () => {
         options={{headerShown: false}}
       />
       <AuthStack.Screen
-        name={'forgotPassword'}
-        component={ForgotPasswordScreen}
-        options={{headerShown: false}}
-      />
-      <AuthStack.Screen
         name={'signup'}
         component={SignupScreen}
-        options={{headerShown: false}}
+        options={{headerShown: true, headerTransparent: true}}
       />
     </AuthStack.Navigator>
   );

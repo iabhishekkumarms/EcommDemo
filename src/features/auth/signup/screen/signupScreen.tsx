@@ -26,11 +26,6 @@ const SignupScreen: FC<AuthScreenProps<'signup'>> = () => {
   const [password, setPassword] = useState<string>('');
 
   const onPressContinue = async () => {};
-
-  const redirectToForgotPasswordScreen = () => {
-    navigate('forgotPassword');
-  };
-
   /**
    * Render title
    */
@@ -82,7 +77,7 @@ const SignupScreen: FC<AuthScreenProps<'signup'>> = () => {
         textStyle={{color: colors.text}}
         preset="link"
         btnText={t('signup.reset')}
-        onPress={redirectToForgotPasswordScreen}
+        onPress={() => {}}
       />
     </View>
   );

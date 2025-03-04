@@ -64,7 +64,13 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       height: vs(60),
       marginVertical: vs(25),
     },
-    qunatityController: {},
+    productItemContainer: {
+      flex: 1,
+      margin: vs(8),
+    },
+    flatListContentContainer: {
+      paddingBottom: vs(16),
+    },
   });
 
 export default makeStyles;

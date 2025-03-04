@@ -2,7 +2,7 @@ import axios, {AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import Config from 'react-native-config';
 import {ApiConfig} from './apiConfig';
 import {getGeneralApiProblem} from './apiProblem';
-import {token_storage} from 'src/store/storage';
+import reduxStorage from 'src/store/storage';
 
 console.log('API URL:', Config.API_URL);
 
@@ -30,9 +30,11 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // You can modify the request config here (e.g., add headers, authentication token)
-    const token = token_storage.getString('access_token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Retrieve the access token from MMKV storage
+    const accessToken = reduxStorage.getItem('accessToken');
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     console.log(
       `🚀 Request: ${config.method?.toUpperCase()} ${config.baseURL}${

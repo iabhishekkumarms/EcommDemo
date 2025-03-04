@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Product, ProductsResponse} from './api.types';
+import {Product, ProductsResponse} from 'src/shared/models/product';
 
 interface ProductsState {
   products: Product[];
@@ -38,10 +38,34 @@ const productsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    fetchProductsByCategoryStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchProductsByCategorySuccess(
+      state,
+      action: PayloadAction<ProductsResponse>,
+    ) {
+      state.loading = false;
+      state.products = action.payload.products;
+      state.total = action.payload.total;
+      state.skip = action.payload.skip;
+      state.limit = action.payload.limit;
+    },
+    fetchProductsByCategoryFailure(state, action: PayloadAction<string>) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const {fetchProductsStart, fetchProductsSuccess, fetchProductsFailure} =
-  productsSlice.actions;
+export const {
+  fetchProductsStart,
+  fetchProductsSuccess,
+  fetchProductsFailure,
+  fetchProductsByCategoryStart,
+  fetchProductsByCategorySuccess,
+  fetchProductsByCategoryFailure,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -38,7 +38,7 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: vs(10),
+      padding: vs(24),
       backgroundColor: colors.btnColorSecondary,
       borderRadius: vs(5),
       marginTop: vs(spacing.lg),

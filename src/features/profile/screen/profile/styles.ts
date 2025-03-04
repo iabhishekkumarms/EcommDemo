@@ -40,6 +40,11 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       fonts: fonts.regular.fontFamily,
       fontSize: vs(14),
     } as TextStyle,
+    signOutBtn: {
+      color: 'red',
+      padding: vs(24),
+      fontSize: vs(18),
+    } as TextStyle,
   });
 
 export default makeStyles;

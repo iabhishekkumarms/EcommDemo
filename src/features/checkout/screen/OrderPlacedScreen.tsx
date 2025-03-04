@@ -1,17 +1,38 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {BackHandler, Image, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
 import {resetAndNavigate} from 'src/navigation';
 import makeStyles from './style';
 import {useTranslation} from 'react-i18next';
 import {Button, Screen} from 'src/components';
 import {useAppTheme} from 'src/theme/useAppTheme';
+import {useAppDispatch} from 'src/store/reduxHook';
+import {clearCart} from 'src/features/cart/api/slice';
 
 const OrderPlacedScreen = () => {
   const {colors, fonts} = useAppTheme(); // Get colors & fonts from theme
   const styles = makeStyles(colors, fonts);
   const {t} = useTranslation();
+  const dispatch = useAppDispatch();
 
   const orderPlacedImage = require('src/assets/icons/orderPlaced.png');
+
+  useEffect(() => {
+    // Clear the cart when the component mounts
+    dispatch(clearCart());
+
+    // Handle hardware back button press
+    const backAction = () => {
+      resetAndNavigate('homeNav');
+      return true; // Prevent default behavior (going back to the previous screen)
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove(); // Clean up the event listener
+  }, [dispatch]);
 
   const navigateToHome = async () => {
     resetAndNavigate('homeNav');

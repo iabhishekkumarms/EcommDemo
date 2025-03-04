@@ -1,4 +1,4 @@
-import {StyleSheet, TextStyle} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {spacing} from 'src/theme/spacing';
 import {ThemeColors, ThemeFonts} from 'src/theme/theme';
 import {s, vs} from 'src/utils';
@@ -10,17 +10,11 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       backgroundColor: colors.background,
       paddingHorizontal: s(spacing.md),
       marginTop: vs(spacing.lg),
+      alignItems: 'center',
+      paddingVertical: vs(spacing.md),
     },
-    textFiledContainer: {
-      marginTop: vs(spacing.md),
-    },
-    buttonConatiner: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: colors.background,
-      padding: vs(16),
+    listContainer: {
+      justifyContent: 'space-between', // Ensure equal spacing between items
     },
   });
 

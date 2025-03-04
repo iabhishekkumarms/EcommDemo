@@ -1,7 +1,8 @@
 import {api} from 'src/api/api';
-import {Category, ProductsResponse} from './api.types';
+import {Category} from './api.types';
 import {endPoints} from './endPoints';
 import {getTranslation} from 'src/utils/messageTranslation';
+import {ProductsResponse} from 'src/shared/models/product';
 
 export const fetchCategoryData = async () => {
   try {

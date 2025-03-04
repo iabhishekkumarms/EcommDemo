@@ -10,11 +10,7 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       backgroundColor: colors.background,
       paddingHorizontal: s(spacing.md),
       marginTop: vs(spacing.lg),
-    },
-    contentContainerStyle: {
-      marginBottom: vs(spacing.lg),
-      paddingBottom: vs(spacing.gigantic),
-      flex: 1,
+      alignItems: 'center',
     },
     emptyConatiner: {
       flexGrow: 1,

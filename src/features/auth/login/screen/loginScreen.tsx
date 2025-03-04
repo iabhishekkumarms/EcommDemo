@@ -109,19 +109,19 @@ const LoginScreen: FC<AuthScreenProps<'login'>> = () => {
         btnText={t('login.continueWithApple')}
         btnIcon={dark ? <AppleLight /> : <AppleDark />}
         btnIconSize={24}
-        onPress={onPressContinue}
+        onPress={() => {}}
       />
       <SocialButton
         btnText={t('login.continueWithGoogle')}
         btnIcon={<GoogleLight />}
         btnIconSize={24}
-        onPress={onPressContinue}
+        onPress={() => {}}
       />
       <SocialButton
         btnText={t('login.continueWithFacebook')}
         btnIcon={<FacebookLight />}
         btnIconSize={24}
-        onPress={onPressContinue}
+        onPress={() => {}}
       />
     </View>
   );

@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import React from 'react';
-import {Category} from 'src/features/home/api/api.types';
+import {Category} from 'src/shared/api/api.types';
 import {ThemeColors, ThemeFonts} from 'src/theme/theme';
 import {vs} from 'src/utils';
 import {spacing} from 'src/theme/spacing';

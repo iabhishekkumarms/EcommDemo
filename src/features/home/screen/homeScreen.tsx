@@ -6,9 +6,11 @@ import {useTranslation} from 'react-i18next';
 import {Screen, Text} from 'src/components';
 import {vs} from 'src/utils';
 import SvgCartIcon from 'src/assets/svgs/CartIcon';
-import SearchBar from 'src/components/SearchBar';
 import {useAppDispatch, useAppSelector} from 'src/store/reduxHook';
-import {callFetchCategoriesApi, callFetchProductsApi} from '../api/actions';
+import {
+  callFetchCategoriesApi,
+  callFetchProductsApi,
+} from '../../../shared/api/actions';
 import ProductItem from 'src/components/ProductItem';
 import CategoryItem from 'src/components/CategoryItem';
 import {selectTotalItemsInCart} from 'src/features/cart/api/slice';
@@ -42,6 +44,12 @@ export const HomeScreen = () => {
   const navigateToCartScreen = async () => {
     try {
       navigate('cart');
+    } catch (error) {}
+  };
+
+  const navigateToCategoryScreen = async () => {
+    try {
+      navigate('categoryList', {category: categories});
     } catch (error) {}
   };
 
@@ -81,7 +89,7 @@ export const HomeScreen = () => {
           <Text size="h3" style={styles.categoryText}>
             {t('home.categories')}
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={navigateToCategoryScreen}>
             <Text style={styles.seeAllText}>{t('home.viewAll')}</Text>
           </TouchableOpacity>
         </View>
@@ -123,10 +131,6 @@ export const HomeScreen = () => {
         />
       </View>
     );
-  };
-
-  const renderSearchBar = () => {
-    return <SearchBar />; // Render the search bar component
   };
 
   return (

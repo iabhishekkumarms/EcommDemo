@@ -1,6 +1,6 @@
 import {TextInput, View} from 'react-native';
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
-import {AuthScreenProps, navigate} from 'src/navigation';
+import {AuthScreenProps, navigate, resetAndNavigate} from 'src/navigation';
 import {Button, Screen, Text} from 'src/components';
 import makeStyles from './styles';
 import {useAppTheme} from 'src/theme/useAppTheme';
@@ -11,6 +11,7 @@ import {useAppDispatch, useAppSelector} from 'src/store/reduxHook';
 import {callLoginApi} from '../api/actions';
 import {LoginReq} from '../api/api.types';
 import {showErrorToast, showSuccessToast} from 'src/utils/toast';
+import reduxStorage from 'src/store/storage';
 
 const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
   const [username, setusername] = useState('');
@@ -47,7 +48,9 @@ const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
     if (data || error) {
       data
         ? (showSuccessToast({message: loginSuccessMessage}),
-          navigate('Primary'))
+          // Save token to MMKV
+          reduxStorage.setItem('accessToken', data.accessToken),
+          resetAndNavigate('Primary'))
         : showErrorToast({message: error ?? unexpectedErrorMessage});
     }
   }, [data, error, loginSuccessMessage, unexpectedErrorMessage]);

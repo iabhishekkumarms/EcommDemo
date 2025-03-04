@@ -38,6 +38,7 @@ const ProductItem = ({item, colors, fonts}: Props) => {
           resizeMode={FastImage.resizeMode.cover}
         />
         <BookmarkButton
+          product={item}
           height={vs(20)}
           width={vs(20)}
           style={styles.bookmarkIcon}

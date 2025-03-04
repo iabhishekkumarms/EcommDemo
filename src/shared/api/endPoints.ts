@@ -7,5 +7,6 @@ export const endPoints = {
     /** Endpoint for categories. */
     categories: 'products/categories',
     products: 'products',
+    productUsingCategory: (slug: string) => `products/category/${slug}`,
   },
 };
