@@ -8,30 +8,44 @@ import SvgIcAdd from 'src/assets/svgs/IcAdd';
 import {Text} from './Text';
 import SvgIcMinus from 'src/assets/svgs/IcMinus';
 
-const AddItemToCart: FC<{
+// Define the props for the AddItemToCart component
+interface AddItemToCartProps {
   item: any;
   colors: ThemeColors;
   fonts: ThemeFonts;
   onQuantityChange: (quantity: number) => void;
-}> = ({item, colors, fonts, onQuantityChange}) => {
+}
+
+// AddItemToCart component to handle adding and removing items from the cart
+const AddItemToCart: FC<AddItemToCartProps> = ({
+  item,
+  colors,
+  fonts,
+  onQuantityChange,
+}) => {
+  // Get the initial count of the item from the Redux store
   const initialCount = useAppSelector(state =>
     selectItemCountById(item.id)(state),
   );
-  const [count, setCount] = useState(initialCount);
-  const styles = makeStyles(colors, fonts);
+  const [count, setCount] = useState(initialCount); // State to keep track of the item count
+  const styles = makeStyles(colors, fonts); // Generate styles based on theme colors and fonts
 
+  // Update the count state when the initial count changes
   useEffect(() => {
     setCount(initialCount);
   }, [initialCount]);
 
+  // Call the onQuantityChange callback whenever the count changes
   useEffect(() => {
     onQuantityChange(count);
   }, [count, onQuantityChange]);
 
+  // Handle incrementing the item count
   const handleIncrement = () => {
     setCount(count + 1);
   };
 
+  // Handle decrementing the item count
   const handleDecrement = () => {
     if (count > 1) {
       setCount(count - 1);
@@ -53,7 +67,8 @@ const AddItemToCart: FC<{
   );
 };
 
-const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
+// Generate styles based on theme colors and fonts
+const makeStyles = (colors: ThemeColors, _fonts: ThemeFonts) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',

@@ -1,5 +1,5 @@
 import createSagaMiddleware from 'redux-saga';
-import reduxStorage from './storage';
+import reduxStorage from '../utils/storage';
 import {persistReducer, persistStore} from 'redux-persist';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';

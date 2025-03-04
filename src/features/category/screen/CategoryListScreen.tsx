@@ -30,12 +30,8 @@ const CategoryListScreen: FC<PrimaryScreenProps<'categoryList'>> = ({
     }
   }, [route.params]);
 
-  console.log('Cateeeee', categories);
-
-  const navigateToProductListScreen = async () => {
-    try {
-      navigate('productList', {slug: route.params.category});
-    } catch (error) {}
+  const navigateToProductListScreen = (slug: string) => {
+    navigate('productList', {slug: slug});
   };
 
   //render category
@@ -53,7 +49,7 @@ const CategoryListScreen: FC<PrimaryScreenProps<'categoryList'>> = ({
                 text={item.name}
                 themeColors={colors}
                 fonts={fonts}
-                onPress={() => {}}
+                onPress={() => navigateToProductListScreen(item.slug)}
               />
             </TouchableOpacity>
           )}
@@ -74,5 +70,3 @@ const CategoryListScreen: FC<PrimaryScreenProps<'categoryList'>> = ({
 };
 
 export default CategoryListScreen;
-
-const styles = StyleSheet.create({});

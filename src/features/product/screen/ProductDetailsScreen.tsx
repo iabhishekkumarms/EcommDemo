@@ -10,6 +10,7 @@ import makeStyles from './styles';
 import CustomerReview from 'src/components/CustomerReview';
 import AddItemToCart from 'src/components/AddItemToCart';
 import AddToBagButton from 'src/components/AddToBagButton';
+import {useHeaderHeight} from '@react-navigation/elements';
 
 const ProductDetailsScreen: FC<PrimaryScreenProps<'productDetails'>> = ({
   route,
@@ -20,6 +21,7 @@ const ProductDetailsScreen: FC<PrimaryScreenProps<'productDetails'>> = ({
   const styles = makeStyles(colors, fonts);
   const {t} = useTranslation();
   const [quantity, setQuantity] = useState(1);
+  const headerSpace = useHeaderHeight();
 
   const renderProductImageSlider = () => {
     return (
@@ -82,7 +84,10 @@ const ProductDetailsScreen: FC<PrimaryScreenProps<'productDetails'>> = ({
       <Screen
         safeAreaEdges={['top', 'bottom', 'left', 'right']}
         preset="scroll"
-        contentContainerStyle={styles.contentContainerStyle}>
+        contentContainerStyle={[
+          styles.contentContainerStyle,
+          {paddingTop: headerSpace},
+        ]}>
         {renderProductImageSlider()}
         {renderProductDetails()}
       </Screen>

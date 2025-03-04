@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from 'react';
+import React, {FC} from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {useAppDispatch} from 'src/store/reduxHook';
 import {addItemWithQuantity} from 'src/features/cart/api/slice';
@@ -8,6 +8,7 @@ import {Text} from './Text';
 import {spacing} from 'src/theme/spacing';
 import {showSuccessToast} from 'src/utils/toast';
 
+// Define the props for the AddToBagButton component
 type Props = {
   item: any;
   quantity: number;
@@ -17,6 +18,7 @@ type Props = {
   toastMessage: string; // Add toastMessage prop
 };
 
+// AddToBagButton component to handle adding items to the cart
 const AddToBagButton: FC<Props> = ({
   item,
   quantity,
@@ -27,12 +29,6 @@ const AddToBagButton: FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
   const styles = makeStyles(colors, fonts);
-
-  // Memoize translation strings
-  // const addToCartSuccessMessage = useMemo(
-  //   () => t('product.addToCartSuccessMessage'),
-  //   [t],
-  // );
 
   const handleAddToBag = () => {
     dispatch(addItemWithQuantity({item, quantity: quantity}));
@@ -51,7 +47,7 @@ const AddToBagButton: FC<Props> = ({
   );
 };
 
-const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
+const makeStyles = (colors: ThemeColors, _fonts: ThemeFonts) =>
   StyleSheet.create({
     buttonContainer: {
       position: 'absolute',

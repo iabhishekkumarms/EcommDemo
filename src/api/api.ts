@@ -2,7 +2,7 @@ import axios, {AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import Config from 'react-native-config';
 import {ApiConfig} from './apiConfig';
 import {getGeneralApiProblem} from './apiProblem';
-import reduxStorage from 'src/store/storage';
+import reduxStorage from 'src/utils/storage';
 
 console.log('API URL:', Config.API_URL);
 

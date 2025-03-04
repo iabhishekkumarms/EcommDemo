@@ -1,8 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Product, ProductsResponse} from 'src/shared/models/product';
+import {RootState} from 'src/store/store';
 
 interface ProductsState {
-  products: Product[];
+  homeProducts: Product[];
+  categoryProducts: Product[];
   total: number;
   skip: number;
   limit: number;
@@ -11,7 +13,8 @@ interface ProductsState {
 }
 
 const initialState: ProductsState = {
-  products: [],
+  homeProducts: [],
+  categoryProducts: [],
   total: 0,
   skip: 0,
   limit: 30,
@@ -23,36 +26,36 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    fetchProductsStart(state) {
+    fetchHomeProductsStart(state) {
       state.loading = true;
       state.error = null;
     },
-    fetchProductsSuccess(state, action: PayloadAction<ProductsResponse>) {
+    fetchHomeProductsSuccess(state, action: PayloadAction<ProductsResponse>) {
       state.loading = false;
-      state.products = action.payload.products;
+      state.homeProducts = action.payload.products;
       state.total = action.payload.total;
       state.skip = action.payload.skip;
       state.limit = action.payload.limit;
     },
-    fetchProductsFailure(state, action: PayloadAction<string>) {
+    fetchHomeProductsFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
     },
-    fetchProductsByCategoryStart(state) {
+    fetchCategoryProductsStart(state) {
       state.loading = true;
       state.error = null;
     },
-    fetchProductsByCategorySuccess(
+    fetchCategoryProductsSuccess(
       state,
       action: PayloadAction<ProductsResponse>,
     ) {
       state.loading = false;
-      state.products = action.payload.products;
+      state.categoryProducts = action.payload.products;
       state.total = action.payload.total;
       state.skip = action.payload.skip;
       state.limit = action.payload.limit;
     },
-    fetchProductsByCategoryFailure(state, action: PayloadAction<string>) {
+    fetchCategoryProductsFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
     },
@@ -60,12 +63,20 @@ const productsSlice = createSlice({
 });
 
 export const {
-  fetchProductsStart,
-  fetchProductsSuccess,
-  fetchProductsFailure,
-  fetchProductsByCategoryStart,
-  fetchProductsByCategorySuccess,
-  fetchProductsByCategoryFailure,
+  fetchHomeProductsStart,
+  fetchHomeProductsSuccess,
+  fetchHomeProductsFailure,
+  fetchCategoryProductsStart,
+  fetchCategoryProductsSuccess,
+  fetchCategoryProductsFailure,
 } = productsSlice.actions;
+
+export const selectHomeProducts = (state: RootState) =>
+  state.products.homeProducts;
+export const selectCategoryProducts = (state: RootState) =>
+  state.products.categoryProducts;
+export const selectProductsLoading = (state: RootState) =>
+  state.products.loading;
+export const selectProductsError = (state: RootState) => state.products.error;
 
 export default productsSlice.reducer;

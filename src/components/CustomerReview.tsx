@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TextStyle} from 'react-native';
 import Star from './Star';
 import {vs} from 'src/utils';
 import {ThemeColors, ThemeFonts} from 'src/theme/theme';
@@ -35,7 +35,7 @@ const CustomerReview = ({
   );
 };
 
-const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
+const makeStyles = (colors: ThemeColors, _fonts: ThemeFonts) =>
   StyleSheet.create({
     container: {
       padding: vs(8),
@@ -48,17 +48,19 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
       justifyContent: 'space-between',
     },
     reviewerName: {
+      color: colors.text,
       fontSize: vs(16),
       fontWeight: 'bold',
-    },
+    } as TextStyle,
     date: {
-      fontSize: vs(14),
       color: colors.text,
-    },
+      fontSize: vs(14),
+    } as TextStyle,
     comment: {
+      color: colors.text,
       fontSize: vs(14),
       marginTop: vs(8),
-    },
+    } as TextStyle,
   });
 
 export default CustomerReview;

@@ -13,7 +13,7 @@ import RowBackground from './component/rowBackground';
 import makeStyles from './styles';
 import {clearCart} from 'src/features/cart/api/slice';
 import {clearAddress} from '../address/slice/addressSlice';
-import reduxStorage from 'src/store/storage';
+import reduxStorage from 'src/utils/storage';
 import {clearWishlist} from '../wishlist/slice/wishlistSlice';
 
 const ProfileScreen = () => {

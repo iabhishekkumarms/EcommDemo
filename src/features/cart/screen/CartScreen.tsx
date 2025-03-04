@@ -10,7 +10,7 @@ import OrderItem from '../components/OrderItem';
 import SvgEmptyCart from 'src/assets/svgs/EmptyCart';
 import {vs} from 'src/utils';
 import {useHeaderHeight} from '@react-navigation/elements';
-import {navigate} from 'src/navigation';
+import {goBack, navigate} from 'src/navigation';
 
 const CartScreen = () => {
   const {colors, fonts} = useAppTheme(); // Get colors & fonts from theme
@@ -20,7 +20,9 @@ const CartScreen = () => {
   const carts = useAppSelector(selectCartItems);
   const totalPrice = useAppSelector(selectTotalCartPrice); // Get total price
 
-  const onPressExplore = async () => {};
+  const onPressExplore = async () => {
+    goBack();
+  };
 
   const headerSpace = useHeaderHeight();
 
@@ -68,6 +70,21 @@ const CartScreen = () => {
     }
   };
 
+  const renderCHeckoutButton = () => {
+    if (carts.length > 0) {
+      return (
+        <View style={styles.btnCheckout}>
+          <Button
+            preset="default"
+            btnText={t('cart.chekout')}
+            onPress={navigateToCheckoutScreen}
+            textStyle={styles.exploreBtnStyle}
+          />
+        </View>
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Screen
@@ -78,14 +95,10 @@ const CartScreen = () => {
           {paddingTop: headerSpace},
         ]}>
         {renderCartsItems()}
+        {renderCHeckoutButton()}
       </Screen>
-      <Button
-        preset="default"
-        btnText={t('cart.chekout')}
-        onPress={navigateToCheckoutScreen}
-        textStyle={styles.exploreBtnStyle}
-      />
     </View>
   );
 };
+
 export default CartScreen;

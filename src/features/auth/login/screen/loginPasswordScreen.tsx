@@ -11,7 +11,7 @@ import {useAppDispatch, useAppSelector} from 'src/store/reduxHook';
 import {callLoginApi} from '../api/actions';
 import {LoginReq} from '../api/api.types';
 import {showErrorToast, showSuccessToast} from 'src/utils/toast';
-import reduxStorage from 'src/store/storage';
+import reduxStorage from 'src/utils/storage';
 
 const LoginPasswordScreen: FC<AuthScreenProps<'loginPassword'>> = ({route}) => {
   const [username, setusername] = useState('');

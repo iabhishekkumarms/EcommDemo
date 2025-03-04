@@ -15,6 +15,10 @@ import ProductItem from 'src/components/ProductItem';
 import CategoryItem from 'src/components/CategoryItem';
 import {selectTotalItemsInCart} from 'src/features/cart/api/slice';
 import {navigate} from 'src/navigation';
+import {
+  selectHomeProducts,
+  selectProductsLoading,
+} from 'src/shared/api/productSlice';
 
 export const HomeScreen = () => {
   const {colors, fonts} = useAppTheme(); // Get colors & fonts from theme
@@ -24,17 +28,10 @@ export const HomeScreen = () => {
   const dispatch = useAppDispatch();
   const count = useAppSelector(selectTotalItemsInCart);
 
-  const {
-    categories,
-    loading: categoriesLoading,
-    error: categoriesError,
-  } = useAppSelector(state => state.category);
+  const {categories} = useAppSelector(state => state.category);
 
-  const {
-    products,
-    loading: productsLoading,
-    error: productsError,
-  } = useAppSelector(state => state.products);
+  const products = useAppSelector(selectHomeProducts);
+  const loading = useAppSelector(selectProductsLoading);
 
   useEffect(() => {
     dispatch(callFetchCategoriesApi());
@@ -44,7 +41,7 @@ export const HomeScreen = () => {
   const navigateToCartScreen = async () => {
     try {
       navigate('cart');
-    } catch (error) {}
+    } catch (err) {}
   };
 
   const navigateToCategoryScreen = async () => {
@@ -53,8 +50,9 @@ export const HomeScreen = () => {
     } catch (error) {}
   };
 
-  console.log(' categories Data from screen: ', categories);
-  console.log('Products Data from screen: ', products);
+  const navigateToProductListScreen = (slug: string) => {
+    navigate('productList', {slug: slug});
+  };
 
   //Render Header
   const renderHeader = () => {
@@ -98,8 +96,9 @@ export const HomeScreen = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => item.slug.toString()}
-          renderItem={({index, item}) => (
-            <TouchableOpacity>
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => navigateToProductListScreen(item.slug)}>
               <CategoryItem item={item} colors={colors} fonts={fonts} />
             </TouchableOpacity>
           )}
@@ -116,7 +115,7 @@ export const HomeScreen = () => {
           <Text size="h3" style={styles.categoryText}>
             {t('home.topSelling')}
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={navigateToCategoryScreen}>
             <Text style={styles.seeAllText}>{t('home.viewAll')}</Text>
           </TouchableOpacity>
         </View>
@@ -125,7 +124,7 @@ export const HomeScreen = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => item.id.toString()}
-          renderItem={({index, item}) => (
+          renderItem={({item}) => (
             <ProductItem item={item} colors={colors} fonts={fonts} />
           )}
         />
@@ -137,7 +136,7 @@ export const HomeScreen = () => {
     <Screen
       safeAreaEdges={['left', 'right']}
       preset="fixed"
-      loading={categoriesLoading || productsLoading}
+      loading={loading}
       contentContainerStyle={styles.contentContainerStyle}>
       {renderHeader()}
       {renderCategories()}

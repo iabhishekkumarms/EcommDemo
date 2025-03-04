@@ -1,26 +1,30 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import React, {FC, useEffect, useState} from 'react';
 import {PrimaryScreenProps} from 'src/navigation';
 import {Screen} from 'src/components';
 import {useAppTheme} from 'src/theme/useAppTheme';
 import makeStyles from './styles';
-import {useTranslation} from 'react-i18next';
 import {useHeaderHeight} from '@react-navigation/elements';
 import ProductItem from 'src/components/ProductItem';
 import {useAppDispatch, useAppSelector} from 'src/store/reduxHook';
 import {callFetchProductsByCategoryApi} from 'src/shared/api/actions';
+import {
+  selectCategoryProducts,
+  selectProductsLoading,
+} from 'src/shared/api/productSlice';
 
+// Define the component type and props
 const ProductListScreen: FC<PrimaryScreenProps<'productList'>> = ({route}) => {
   const {colors, fonts} = useAppTheme(); // Get colors & fonts from theme
   const styles = makeStyles(colors, fonts);
-  const {t} = useTranslation();
   const headerSpace = useHeaderHeight();
 
+  // Get the category slug from route params
   const dispatch = useAppDispatch();
+  const products = useAppSelector(selectCategoryProducts);
+  const loading = useAppSelector(selectProductsLoading);
 
-  const {products, loading, error} = useAppSelector(state => state.products);
-
-  const [slug, setSlug] = useState<string>('');
+  const [slug] = useState<string>(route.params.slug);
 
   useEffect(() => {
     if (slug) {
@@ -28,6 +32,7 @@ const ProductListScreen: FC<PrimaryScreenProps<'productList'>> = ({route}) => {
     }
   }, [dispatch, slug]);
 
+  // Render a single product item
   const renderProductItem = ({item}: any) => (
     <View style={styles.productItemContainer}>
       <ProductItem item={item} colors={colors} fonts={fonts} />

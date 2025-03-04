@@ -1,11 +1,11 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
-  fetchProductsStart,
-  fetchProductsSuccess,
-  fetchProductsFailure,
-  fetchProductsByCategoryStart,
-  fetchProductsByCategorySuccess,
-  fetchProductsByCategoryFailure,
+  fetchHomeProductsStart,
+  fetchHomeProductsSuccess,
+  fetchHomeProductsFailure,
+  fetchCategoryProductsStart,
+  fetchCategoryProductsSuccess,
+  fetchCategoryProductsFailure,
 } from './productSlice';
 import {
   CALL_FETCH_PRODUCTS_API,
@@ -17,24 +17,24 @@ import {ProductsResponse} from 'src/shared/models/product';
 import {fetchProductsByCategory} from 'src/features/category/api/api';
 
 /**
- * Saga to handle the product fetch API request.
+ * Saga to handle the home products fetch API request.
  */
-function* fetchProductsApiDataSaga() {
+function* fetchHomeProductsApiDataSaga() {
   try {
-    // Dispatch fetchProductsStart action to indicate loading
-    yield put(fetchProductsStart());
+    // Dispatch fetchHomeProductsStart action to indicate loading
+    yield put(fetchHomeProductsStart());
 
-    // Call the API to fetch products
+    // Call the API to fetch home products
     const response: ProductsResponse = yield call(fetchProductsData);
-    console.log('Saga response: ', response);
+    console.log('Saga response for home products: ', response);
 
-    yield put(fetchProductsSuccess(response));
+    yield put(fetchHomeProductsSuccess(response));
   } catch (error: any) {
     // Handle API call failure
     const errorMessage = getTranslation(
       'errorMessage.fetchProductsRequestFailed',
     );
-    yield put(fetchProductsFailure(error?.message || errorMessage));
+    yield put(fetchHomeProductsFailure(error?.message || errorMessage));
   }
 }
 
@@ -43,8 +43,8 @@ function* fetchProductsApiDataSaga() {
  */
 function* fetchProductsByCategorySaga(action: {type: string; payload: string}) {
   try {
-    // Dispatch fetchProductsByCategoryStart action to indicate loading
-    yield put(fetchProductsByCategoryStart());
+    // Dispatch fetchCategoryProductsStart action to indicate loading
+    yield put(fetchCategoryProductsStart());
 
     // Call the API to fetch products by category
     const response: ProductsResponse = yield call(
@@ -53,13 +53,13 @@ function* fetchProductsByCategorySaga(action: {type: string; payload: string}) {
     );
     console.log('Saga response for category: ', response);
 
-    yield put(fetchProductsByCategorySuccess(response));
+    yield put(fetchCategoryProductsSuccess(response));
   } catch (error: any) {
     // Handle API call failure
     const errorMessage = getTranslation(
       'errorMessage.fetchProductsRequestFailed',
     );
-    yield put(fetchProductsByCategoryFailure(error?.message || errorMessage));
+    yield put(fetchCategoryProductsFailure(error?.message || errorMessage));
   }
 }
 
@@ -67,7 +67,7 @@ function* fetchProductsByCategorySaga(action: {type: string; payload: string}) {
  * Watcher saga to listen for product fetch API call action.
  */
 function* productsSaga() {
-  yield takeEvery(CALL_FETCH_PRODUCTS_API, fetchProductsApiDataSaga);
+  yield takeEvery(CALL_FETCH_PRODUCTS_API, fetchHomeProductsApiDataSaga);
   yield takeEvery(
     CALL_FETCH_PRODUCTS_BY_CATEGORY_API,
     fetchProductsByCategorySaga,

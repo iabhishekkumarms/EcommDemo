@@ -1,12 +1,12 @@
-import axios from 'axios';
 import {endPoints} from './endpoint';
 import {getTranslation} from 'src/utils/messageTranslation';
 import {ProductsResponse} from 'src/shared/models/product';
+import {api} from 'src/api/api';
 
 // Fetch products by category
 export const fetchProductsByCategory = async (categorySlug: string) => {
   try {
-    const response = await axios.get<ProductsResponse>(
+    const response = await api.get<ProductsResponse>(
       endPoints.product.productUsingCategory(categorySlug),
     );
     console.log(

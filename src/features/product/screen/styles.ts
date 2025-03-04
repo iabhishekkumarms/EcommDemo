@@ -10,7 +10,6 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
     },
     contentContainerStyle: {
       paddingHorizontal: s(spacing.md),
-      marginTop: vs(spacing.lg),
       marginBottom: vs(spacing.lg),
       paddingBottom: vs(spacing.gigantic),
     },
@@ -70,6 +69,9 @@ const makeStyles = (colors: ThemeColors, fonts: ThemeFonts) =>
     },
     flatListContentContainer: {
       paddingBottom: vs(16),
+    },
+    ratingReview: {
+      color: colors.text,
     },
   });
 
